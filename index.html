@@ -610,6 +610,45 @@
         color: var(--white);
       }
 
+      .sponsor-email-reveal {
+        display: none;
+        margin-top: 20px;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        animation: panelFadeIn 0.3s ease;
+      }
+
+      .sponsor-email-reveal.active {
+        display: flex;
+      }
+
+      .sponsor-email-reveal span {
+        font-family: var(--font-body);
+        font-size: 1rem;
+        color: var(--white);
+        letter-spacing: 0.5px;
+      }
+
+      .sponsor-copy-btn {
+        padding: 6px 16px;
+        background: var(--red);
+        color: var(--white);
+        border: none;
+        border-radius: 4px;
+        font-family: var(--font-display);
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .sponsor-copy-btn:hover {
+        background: var(--red-dark);
+      }
+
       /* ── CONTACT ── */
       .contact-section {
         background: var(--dark-1);
@@ -1051,7 +1090,11 @@
         <h2 class="section-title">Sponsors</h2>
         <div class="sponsors-cta">
           <p>Interested in partnering with Ragnarok Racers? We'd love to hear from you.</p>
-          <a href="mailto:ajardevall@gmail.com">Become a Sponsor</a>
+          <a href="#" id="sponsor-reveal-btn" onclick="revealSponsorEmail(event)">Become a Sponsor</a>
+          <div class="sponsor-email-reveal" id="sponsor-email">
+            <span>ajardevall@gmail.com</span>
+            <button class="sponsor-copy-btn" onclick="copySponsorEmail(this)">Copy</button>
+          </div>
         </div>
       </div>
     </section>
@@ -1063,11 +1106,8 @@
           <div class="contact-text">
             <div class="section-label">Get in Touch</div>
             <h2 class="section-title">Contact Us</h2>
-            <p>Have questions or want to follow the team? Reach out.</p>
+            <p>Have questions or want to follow the team? Reach out via the sponsors section above.</p>
           </div>
-          <a href="mailto:ajardevall@gmail.com" class="contact-email">
-            ajardevall@gmail.com
-          </a>
         </div>
       </div>
     </section>
@@ -1084,6 +1124,19 @@
 
       function closeMenu() {
         document.getElementById("nav-list").classList.remove("active");
+      }
+
+      // Sponsor email reveal & copy
+      function revealSponsorEmail(e) {
+        e.preventDefault();
+        document.getElementById("sponsor-email").classList.add("active");
+      }
+
+      function copySponsorEmail(btn) {
+        navigator.clipboard.writeText("ajardevall@gmail.com").then(function () {
+          btn.textContent = "Copied!";
+          setTimeout(function () { btn.textContent = "Copy"; }, 2000);
+        });
       }
 
       // Co-driver tab switching
