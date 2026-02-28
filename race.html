@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ragnarok Racers</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --red: #ff2800;
+        --red-dark: #cc2000;
+        --black: #000;
+        --dark-1: #0a0a0a;
+        --dark-2: #111;
+        --dark-3: #1a1a1a;
+        --dark-4: #222;
+        --dark-5: #333;
+        --white: #fff;
+        --gray: #aaa;
+        --font-display: "Orbitron", sans-serif;
+        --font-body: "Inter", "Arial", sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: var(--font-body);
+        background-color: var(--black);
+        color: var(--white);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ── NAV ── */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        transition: background 0.3s;
+      }
+
+      nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 64px;
+      }
+
+      .nav-brand {
+        font-family: var(--font-display);
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--red);
+        text-decoration: none;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 32px;
+      }
+
+      .nav-links a {
+        color: var(--gray);
+        text-decoration: none;
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        transition: color 0.2s;
+      }
+
+      .nav-links a:hover {
+        color: var(--white);
+      }
+
+      .menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--white);
+        font-size: 24px;
+        cursor: pointer;
+        padding: 8px;
+      }
+
+      /* ── HERO ── */
+      .hero {
+        position: relative;
+        height: 100vh;
+        min-height: 600px;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+      }
+
+      .hero-bg img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .hero-bg::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 0, 0, 0.92) 0%,
+          rgba(0, 0, 0, 0.6) 50%,
+          rgba(0, 0, 0, 0.3) 100%
+        );
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+        width: 100%;
+      }
+
+      .hero-eyebrow {
+        font-family: var(--font-display);
+        font-size: 0.75rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-bottom: 16px;
+      }
+
+      .hero h1 {
+        font-family: var(--font-display);
+        font-size: clamp(2.5rem, 7vw, 5.5rem);
+        font-weight: 900;
+        text-transform: uppercase;
+        line-height: 1.05;
+        letter-spacing: -1px;
+        max-width: 700px;
+      }
+
+      .hero h1 span {
+        display: block;
+        color: var(--red);
+      }
+
+      .hero-subtitle {
+        margin-top: 20px;
+        font-size: 1.1rem;
+        color: var(--gray);
+        max-width: 500px;
+        line-height: 1.7;
+      }
+
+      .hero-cta {
+        margin-top: 36px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 32px;
+        background: var(--red);
+        color: var(--white);
+        text-decoration: none;
+        font-family: var(--font-display);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border-radius: 4px;
+        transition: background 0.2s, transform 0.2s;
+      }
+
+      .hero-cta:hover {
+        background: var(--red-dark);
+        transform: translateY(-1px);
+      }
+
+      .hero-scroll {
+        position: absolute;
+        bottom: 32px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+        color: var(--gray);
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        text-align: center;
+        animation: float 2s ease-in-out infinite;
+      }
+
+      .hero-scroll::after {
+        content: "";
+        display: block;
+        width: 1px;
+        height: 40px;
+        background: var(--gray);
+        margin: 8px auto 0;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateX(-50%) translateY(0); }
+        50% { transform: translateX(-50%) translateY(6px); }
+      }
+
+      /* ── SECTIONS ── */
+      .section {
+        padding: 100px 24px;
+      }
+
+      .section-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .section-label {
+        font-family: var(--font-display);
+        font-size: 0.7rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-bottom: 12px;
+      }
+
+      .section-title {
+        font-family: var(--font-display);
+        font-size: clamp(1.8rem, 4vw, 3rem);
+        font-weight: 800;
+        text-transform: uppercase;
+        margin-bottom: 48px;
+        letter-spacing: 1px;
+      }
+
+      .section-title::after {
+        content: "";
+        display: block;
+        width: 60px;
+        height: 3px;
+        background: var(--red);
+        margin-top: 16px;
+      }
+
+      /* ── THE CAR ── */
+      .car-section {
+        background: var(--dark-3);
+      }
+
+      .car-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+      }
+
+      .car-details h3 {
+        font-family: var(--font-display);
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: var(--red);
+      }
+
+      .car-details p {
+        color: var(--gray);
+        line-height: 1.8;
+        font-size: 0.95rem;
+      }
+
+      .car-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-top: 32px;
+      }
+
+      .car-stat {
+        text-align: center;
+        padding: 16px;
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .car-stat-value {
+        font-family: var(--font-display);
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--red);
+      }
+
+      .car-stat-label {
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--gray);
+        margin-top: 4px;
+      }
+
+      .car-image-wrapper img {
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+      }
+
+      /* ── TEAM ── */
+      .team-section {
+        background: var(--dark-1);
+      }
+
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+      }
+
+      .team-card {
+        background: var(--dark-3);
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .team-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      }
+
+      .team-card-img {
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      .team-card-body {
+        padding: 28px;
+      }
+
+      .team-card-name {
+        font-family: var(--font-display);
+        font-size: 1.1rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .team-card-name img {
+        width: 24px;
+        height: 16px;
+        object-fit: cover;
+        border-radius: 2px;
+      }
+
+      .team-card-role {
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-top: 4px;
+        font-weight: 600;
+      }
+
+      .team-card-location {
+        font-size: 0.85rem;
+        color: var(--gray);
+        margin-top: 4px;
+      }
+
+      .team-card-bio {
+        margin-top: 16px;
+        font-size: 0.9rem;
+        color: var(--gray);
+        line-height: 1.7;
+      }
+
+      /* ── RACES ── */
+      .races-section {
+        background: var(--dark-2);
+      }
+
+      .race-timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .race-card {
+        display: grid;
+        grid-template-columns: 140px 1fr auto;
+        gap: 32px;
+        align-items: start;
+        padding: 32px;
+        background: var(--dark-3);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: border-color 0.2s;
+      }
+
+      .race-card:hover {
+        border-color: rgba(255, 40, 0, 0.3);
+      }
+
+      .race-card-date {
+        text-align: center;
+        padding: 16px;
+        background: rgba(255, 40, 0, 0.1);
+        border-radius: 8px;
+        border: 1px solid rgba(255, 40, 0, 0.15);
+      }
+
+      .race-card-month {
+        font-family: var(--font-display);
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--red);
+      }
+
+      .race-card-day {
+        font-family: var(--font-display);
+        font-size: 1.8rem;
+        font-weight: 800;
+        line-height: 1.2;
+      }
+
+      .race-card-year {
+        font-size: 0.75rem;
+        color: var(--gray);
+        margin-top: 2px;
+      }
+
+      .race-card-details h3 {
+        font-family: var(--font-display);
+        font-size: 1.2rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .race-badge {
+        display: inline-block;
+        font-family: var(--font-body);
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 3px 10px;
+        border-radius: 20px;
+        vertical-align: middle;
+      }
+
+      .race-badge-win {
+        background: linear-gradient(135deg, #ffd700, #b8860b);
+        color: #000;
+      }
+
+      .race-badge-upcoming {
+        background: var(--red);
+        color: var(--white);
+      }
+
+      .race-card-location {
+        font-size: 0.85rem;
+        color: var(--gray);
+        margin-top: 6px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .race-card-location::before {
+        content: "\25C6";
+        color: var(--red);
+        font-size: 0.5rem;
+      }
+
+      .race-card-desc {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        color: var(--gray);
+        line-height: 1.7;
+      }
+
+      .race-card-image {
+        width: 160px;
+        height: 120px;
+        object-fit: contain;
+        border-radius: 8px;
+      }
+
+      /* ── SPONSORS ── */
+      .sponsors-section {
+        background: var(--dark-3);
+      }
+
+      .sponsors-cta {
+        text-align: center;
+        padding: 60px 24px;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 16px;
+        border: 1px dashed rgba(255, 255, 255, 0.1);
+      }
+
+      .sponsors-cta p {
+        color: var(--gray);
+        font-size: 1.1rem;
+        margin-bottom: 24px;
+      }
+
+      .sponsors-cta a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 28px;
+        border: 2px solid var(--red);
+        color: var(--red);
+        text-decoration: none;
+        font-family: var(--font-display);
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border-radius: 4px;
+        transition: background 0.2s, color 0.2s;
+      }
+
+      .sponsors-cta a:hover {
+        background: var(--red);
+        color: var(--white);
+      }
+
+      /* ── CONTACT ── */
+      .contact-section {
+        background: var(--dark-1);
+      }
+
+      .contact-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+      }
+
+      .contact-text p {
+        color: var(--gray);
+        font-size: 1rem;
+        margin-top: 8px;
+      }
+
+      .contact-email {
+        font-family: var(--font-display);
+        font-size: 1rem;
+        color: var(--red);
+        text-decoration: none;
+        letter-spacing: 1px;
+        transition: color 0.2s;
+      }
+
+      .contact-email:hover {
+        color: var(--white);
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        background: var(--black);
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 32px 24px;
+        text-align: center;
+      }
+
+      footer p {
+        font-size: 0.8rem;
+        color: var(--dark-5);
+        letter-spacing: 1px;
+      }
+
+      /* ── MOBILE ── */
+      @media (max-width: 1024px) {
+        .car-layout {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+
+        .race-card {
+          grid-template-columns: 120px 1fr;
+        }
+
+        .race-card-image {
+          display: none;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .menu-toggle {
+          display: block;
+        }
+
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 64px;
+          left: 0;
+          right: 0;
+          background: rgba(0, 0, 0, 0.95);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          flex-direction: column;
+          padding: 24px;
+          gap: 20px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .nav-links.active {
+          display: flex;
+        }
+
+        .nav-links a {
+          font-size: 0.9rem;
+        }
+
+        .hero {
+          min-height: 500px;
+        }
+
+        .hero-subtitle {
+          font-size: 0.95rem;
+        }
+
+        .section {
+          padding: 64px 20px;
+        }
+
+        .team-grid {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+
+        .car-stats {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 12px;
+        }
+
+        .car-stat {
+          padding: 12px 8px;
+        }
+
+        .car-stat-value {
+          font-size: 1.1rem;
+        }
+
+        .race-card {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+
+        .race-card-date {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          text-align: left;
+          padding: 12px 16px;
+        }
+
+        .race-card-day {
+          font-size: 1.4rem;
+        }
+
+        .contact-content {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .hero-cta {
+          padding: 12px 24px;
+          font-size: 0.7rem;
+        }
+
+        .section-title {
+          font-size: 1.5rem;
+        }
+
+        .car-stats {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <header>
+      <nav>
+        <a href="#home" class="nav-brand">Ragnarok</a>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">&#9776;</button>
+        <ul class="nav-links" id="nav-list">
+          <li><a href="#car" onclick="closeMenu()">The Car</a></li>
+          <li><a href="#team" onclick="closeMenu()">Team</a></li>
+          <li><a href="#races" onclick="closeMenu()">Races</a></li>
+          <li><a href="#sponsors" onclick="closeMenu()">Sponsors</a></li>
+          <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="hero-bg">
+        <img src="car.png" alt="Rally Car" />
+      </div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">ARA Open 2WD</div>
+        <h1>Ragnarok <span>Racers</span></h1>
+        <p class="hero-subtitle">
+          Pushing a 1993 Volvo 940 to its limits across the toughest gravel stages in the American Rally Association.
+        </p>
+        <a href="#races" class="hero-cta">View Races &darr;</a>
+      </div>
+      <div class="hero-scroll">Scroll</div>
+    </section>
+
+    <!-- THE CAR -->
+    <section id="car" class="section car-section">
+      <div class="section-inner">
+        <div class="section-label">The Machine</div>
+        <h2 class="section-title">The Car</h2>
+        <div class="car-layout">
+          <div class="car-details">
+            <h3>1993 Volvo 940</h3>
+            <p>
+              A racing icon meticulously engineered by Carl Jardevall, the
+              legendary "Sideways Swede." This remarkable vehicle has been driven
+              to numerous stage victories by Nate Tennis, showcasing its enduring
+              prowess and precision. Now under the command of Alexander, the
+              Volvo 940 competes in the open 2WD class, where its unassuming
+              4-cylinder turbo engine and 4-speed dogbox work in harmony to blend
+              classic elegance with competitive edge. A testament to its
+              creators' vision and the ongoing dedication of its drivers, this
+              Volvo continues to redefine the boundaries of motorsport
+              excellence.
+            </p>
+            <div class="car-stats">
+              <div class="car-stat">
+                <div class="car-stat-value">~250</div>
+                <div class="car-stat-label">Horsepower</div>
+              </div>
+              <div class="car-stat">
+                <div class="car-stat-value">4-Spd</div>
+                <div class="car-stat-label">Dogbox</div>
+              </div>
+              <div class="car-stat">
+                <div class="car-stat-value">2WD</div>
+                <div class="car-stat-label">Open Class</div>
+              </div>
+            </div>
+          </div>
+          <div class="car-image-wrapper">
+            <img src="rally-car.png" alt="1993 Volvo 940 Rally Car" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAM -->
+    <section id="team" class="section team-section">
+      <div class="section-inner">
+        <div class="section-label">The Crew</div>
+        <h2 class="section-title">Meet Our Team</h2>
+        <div class="team-grid">
+          <div class="team-card">
+            <img class="team-card-img" src="alexreis.jpg" alt="Alex Jardevall" />
+            <div class="team-card-body">
+              <div class="team-card-name">
+                Alex Jardevall
+                <img src="sweden-flag.png" alt="Swedish Flag" />
+              </div>
+              <div class="team-card-role">Driver</div>
+              <div class="team-card-location">Bay Area, CA</div>
+              <p class="team-card-bio">
+                Alexander is a Registered Nurse with a diverse background in
+                dodging the chaos of San Francisco's traffic as an EMT driving an
+                ambulance to the limelight as an actor and model. With rally
+                racing in his blood, thanks to his father, the legendary
+                "Sideways Swede," he channels the coolness of Steve McQueen and
+                the sophistication of Paul Newman, aiming to blend high-octane
+                thrills with a dash of silver-screen flair. Adrenaline and charm
+                are his trademarks, and he's always geared up for the next
+                adventure&mdash;whether it's on the racetrack or the runway.
+              </p>
+            </div>
+          </div>
+          <div class="team-card">
+            <img class="team-card-img" src="maxmelcher.jpg" alt="Max Melcher" />
+            <div class="team-card-body">
+              <div class="team-card-name">
+                Max Melcher
+                <img src="us-flag.png" alt="US Flag" />
+              </div>
+              <div class="team-card-role">Co-Driver</div>
+              <div class="team-card-location">Houston, TX</div>
+              <p class="team-card-bio">
+                Max is a versatile professional who balances his career in tech
+                with his passion for racing. As a Product Manager at a blockchain
+                company, he helps developers create cutting-edge decentralized
+                applications. Outside of work, Max is a commercial-rated pilot
+                and certified EMT, skills that complement his role as a
+                co-driver. Max's journey into rally racing began when he met Alex
+                during his EMT training. When not in the co-driver's seat, Max
+                channels his energy into training for triathlons. He also enjoys
+                expanding his knowledge through podcasts and traveling.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RACES -->
+    <section id="races" class="section races-section">
+      <div class="section-inner">
+        <div class="section-label">Results &amp; Schedule</div>
+        <h2 class="section-title">Races</h2>
+        <div class="race-timeline">
+
+          <div class="race-card">
+            <div class="race-card-date">
+              <div class="race-card-month">Oct</div>
+              <div class="race-card-day">4-6</div>
+              <div class="race-card-year">2024</div>
+            </div>
+            <div class="race-card-details">
+              <h3>
+                Tour De Forest
+                <span class="race-badge race-badge-win">1st Place</span>
+              </h3>
+              <div class="race-card-location">Shelton, Washington</div>
+              <p class="race-card-desc">
+                Tour de Forest Rally was a newly revived event in 2018. Last run
+                in 1983, the rally represents an exciting new challenge for ARA
+                competitors, placing teams on stage roads unseen in rally
+                competition for thirty-five years. For 2024, the Tour de Forest
+                Rally returned to the tree-covered roads south of Seattle
+                positioned as an ARA Western Regional Championship Event.
+              </p>
+            </div>
+            <img
+              class="race-card-image"
+              src="tourdeforestlogo.png"
+              alt="Tour de Forest Logo"
+            />
+          </div>
+
+          <div class="race-card">
+            <div class="race-card-date">
+              <div class="race-card-month">Dec</div>
+              <div class="race-card-day">7</div>
+              <div class="race-card-year">2024</div>
+            </div>
+            <div class="race-card-details">
+              <h3>Ridge Rally</h3>
+              <div class="race-card-location">Kern County, California</div>
+              <p class="race-card-desc">
+                The Ridge Rally features 141+ stage miles of open, flat-out
+                roads that transition into switchbacks and hairpins, all while
+                traversing a 4,000 ft elevation change. These stage miles make
+                The Ridge one of the longest events on the ARA calendar. An ARA
+                Western Regional Championship event run on gravel through the
+                mountains of Southern California.
+              </p>
+            </div>
+          </div>
+
+          <div class="race-card">
+            <div class="race-card-date">
+              <div class="race-card-month">Apr</div>
+              <div class="race-card-day">12-13</div>
+              <div class="race-card-year">2025</div>
+            </div>
+            <div class="race-card-details">
+              <h3>Olympus Rally</h3>
+              <div class="race-card-location">Shelton, Washington</div>
+              <p class="race-card-desc">
+                The Olympus Rally is one of the oldest and most iconic rallies
+                in the United States, with roots dating back to 1968. Hosted
+                outside Shelton, WA, its 140 stage miles make up some of the
+                longest stages of the ARA season, with some clocking in at over
+                20 miles. A true test of endurance and speed through the forests
+                of the Pacific Northwest.
+              </p>
+            </div>
+          </div>
+
+          <div class="race-card">
+            <div class="race-card-date">
+              <div class="race-card-month">Oct</div>
+              <div class="race-card-day">4</div>
+              <div class="race-card-year">2025</div>
+            </div>
+            <div class="race-card-details">
+              <h3>Tour de Forest</h3>
+              <div class="race-card-location">Shelton, Washington</div>
+              <p class="race-card-desc">
+                The Tour de Forest Rally traces its roots back to the late
+                1970s, first organized by the Rainier Auto Sports Club. This
+                compact, one-day ARA West Region Championship event covers 34.6
+                stage miles across four special stages. Tour de Forest's
+                schedule is unique in that it combines recce and competition on
+                the same day, sending teams through the tree-covered roads south
+                of Seattle.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SPONSORS -->
+    <section id="sponsors" class="section sponsors-section">
+      <div class="section-inner">
+        <div class="section-label">Partners</div>
+        <h2 class="section-title">Sponsors</h2>
+        <div class="sponsors-cta">
+          <p>Interested in partnering with Ragnarok Racers? We'd love to hear from you.</p>
+          <a href="mailto:info@ragnarokracers.com">Become a Sponsor</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section contact-section">
+      <div class="section-inner">
+        <div class="contact-content">
+          <div class="contact-text">
+            <div class="section-label">Get in Touch</div>
+            <h2 class="section-title">Contact Us</h2>
+            <p>Have questions or want to follow the team? Reach out.</p>
+          </div>
+          <a href="mailto:info@ragnarokracers.com" class="contact-email">
+            info@ragnarokracers.com
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>&copy; 2026 Ragnarok Racers. All rights reserved.</p>
+    </footer>
+
+    <script>
+      function toggleMenu() {
+        document.getElementById("nav-list").classList.toggle("active");
+      }
+
+      function closeMenu() {
+        document.getElementById("nav-list").classList.remove("active");
+      }
+
+      // Shrink header on scroll
+      window.addEventListener("scroll", function () {
+        document.querySelector("header").style.background =
+          window.scrollY > 50
+            ? "rgba(0, 0, 0, 0.95)"
+            : "rgba(0, 0, 0, 0.85)";
+      });
+    </script>
+  </body>
+</html>
