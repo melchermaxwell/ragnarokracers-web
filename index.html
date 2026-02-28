@@ -407,6 +407,51 @@
         line-height: 1.7;
       }
 
+      /* ── CO-DRIVER TABS ── */
+      .codriver-tabs {
+        display: flex;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .codriver-tab {
+        flex: 1;
+        padding: 14px 0;
+        background: none;
+        border: none;
+        border-bottom: 3px solid transparent;
+        color: var(--gray);
+        font-family: var(--font-display);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: color 0.2s, border-color 0.2s;
+      }
+
+      .codriver-tab:hover {
+        color: var(--white);
+      }
+
+      .codriver-tab.active {
+        color: var(--white);
+        border-bottom-color: var(--red);
+      }
+
+      .codriver-panel {
+        display: none;
+      }
+
+      .codriver-panel.active {
+        display: block;
+        animation: panelFadeIn 0.3s ease;
+      }
+
+      @keyframes panelFadeIn {
+        from { opacity: 0; transform: translateY(4px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
       /* ── RACES ── */
       .races-section {
         background: var(--dark-2);
@@ -830,25 +875,46 @@
             </div>
           </div>
           <div class="team-card">
-            <img class="team-card-img" src="maxmelcher.jpg" alt="Max Melcher" />
-            <div class="team-card-body">
-              <div class="team-card-name">
-                Max Melcher
-                <img src="us-flag.png" alt="US Flag" />
+            <div class="codriver-tabs">
+              <button class="codriver-tab active" data-target="max">Max</button>
+              <button class="codriver-tab" data-target="chase">Chase</button>
+            </div>
+            <div class="codriver-panel active" id="panel-max">
+              <img class="team-card-img" src="max.jpg" alt="Max Melcher" />
+              <div class="team-card-body">
+                <div class="team-card-name">
+                  Max Melcher
+                  <img src="us-flag.png" alt="US Flag" />
+                </div>
+                <div class="team-card-role">Co-Driver</div>
+                <div class="team-card-location">Houston, TX</div>
+                <p class="team-card-bio">
+                  Max is a versatile professional who balances his career in tech
+                  with his passion for racing. As a Product Manager at a blockchain
+                  company, he helps developers create cutting-edge decentralized
+                  applications. Outside of work, Max is a commercial-rated pilot
+                  and certified EMT, skills that complement his role as a
+                  co-driver. Max's journey into rally racing began when he met Alex
+                  during his EMT training. When not in the co-driver's seat, Max
+                  channels his energy into training for triathlons. He also enjoys
+                  expanding his knowledge through podcasts and traveling.
+                </p>
               </div>
-              <div class="team-card-role">Co-Driver</div>
-              <div class="team-card-location">Houston, TX</div>
-              <p class="team-card-bio">
-                Max is a versatile professional who balances his career in tech
-                with his passion for racing. As a Product Manager at a blockchain
-                company, he helps developers create cutting-edge decentralized
-                applications. Outside of work, Max is a commercial-rated pilot
-                and certified EMT, skills that complement his role as a
-                co-driver. Max's journey into rally racing began when he met Alex
-                during his EMT training. When not in the co-driver's seat, Max
-                channels his energy into training for triathlons. He also enjoys
-                expanding his knowledge through podcasts and traveling.
-              </p>
+            </div>
+            <div class="codriver-panel" id="panel-chase">
+              <img class="team-card-img" src="chase.jpg" alt="Chase Melcher" />
+              <div class="team-card-body">
+                <div class="team-card-name">
+                  Chase Melcher
+                  <img src="us-flag.png" alt="US Flag" />
+                </div>
+                <div class="team-card-role">Co-Driver</div>
+                <div class="team-card-location">Phoenix, AZ</div>
+                <p class="team-card-bio">
+                  Avid rock climber, outdoors enthusiast, co-driver who brings
+                  grit and determination to the team.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -1019,6 +1085,22 @@
       function closeMenu() {
         document.getElementById("nav-list").classList.remove("active");
       }
+
+      // Co-driver tab switching
+      document.querySelectorAll(".codriver-tab").forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          var tabs = this.closest(".codriver-tabs");
+          var card = this.closest(".team-card");
+          tabs.querySelectorAll(".codriver-tab").forEach(function (t) {
+            t.classList.remove("active");
+          });
+          this.classList.add("active");
+          card.querySelectorAll(".codriver-panel").forEach(function (p) {
+            p.classList.remove("active");
+          });
+          card.querySelector("#panel-" + this.dataset.target).classList.add("active");
+        });
+      });
 
       // Shrink header on scroll
       window.addEventListener("scroll", function () {
